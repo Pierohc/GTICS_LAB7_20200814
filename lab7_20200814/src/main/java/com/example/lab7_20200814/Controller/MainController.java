@@ -3,6 +3,7 @@ package com.example.lab7_20200814.Controller;
 
 import com.example.lab7_20200814.Entity.Players;
 import com.example.lab7_20200814.Repository.PlayersRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +39,57 @@ public class MainController {
             @RequestBody Players player,
             @RequestParam(value="fetchId", required = false) boolean fetchId){
 
+        System.out.println(player.getName());
+        System.out.println(player.getMmr());
+        System.out.println(player.getRegion());
+
+        /* ID del nuevo Player */
+        List<Players> listaOrdenada = playersRepository.listarDeMayorMenor();
+        Integer idNuevoPlayer = listaOrdenada.get(0).getPlayerId() + 1;
+        player.setPlayerId(idNuevoPlayer);
+
+
+        /* Nueva Posición */
+
+
+
+        Integer i = new Integer(0);
+
+        List<Players> listarPlayersPorMmr = playersRepository.listarPlayersPorMmr();
+        for (Players p : listarPlayersPorMmr) {
+
+
+
+            if(p.getMmr() >= player.getMmr()){
+
+                Integer nuevaPosicion = p.getPosition();
+                player.setPosition(nuevaPosicion);
+
+                System.out.println('Nueva posicion: ' + nuevaPosicion);
+                //playersRepository.save(player);
+
+                System.out.println(i);
+
+
+
+                break;
+            }
+
+            i = i + 1;
+
+        }
+
+
+
 
 
 
         HashMap<String, Object> responseJson = new HashMap<>();
 
-        playersRepository.save(player);
+
+
+
+
         if(fetchId) {
             responseJson.put("id", player.getPlayerId());
         }
