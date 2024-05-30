@@ -7,6 +7,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.query.JSqlParserUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -65,10 +66,16 @@ public class MainController {
                 Integer nuevaPosicion = p.getPosition();
                 player.setPosition(nuevaPosicion);
 
-                System.out.println('Nueva posicion: ' + nuevaPosicion);
+                System.out.println("Nueva posicion: " + nuevaPosicion  );
                 //playersRepository.save(player);
+                System.out.println("indice en que para: " + i);
 
-                System.out.println(i);
+
+
+                while(i <= listarPlayersPorMmr.size()-1){
+                    System.out.println("posicion del resto: " + i);
+                    i = i + 1;
+                }
 
 
 
